@@ -1,5 +1,5 @@
-public  class TestClass {   
-    public void test(){
-    System.debug("ok");
+public class TestClass {   
+    public void Atest(){
+    System.debug('Hi');
     }
 }
