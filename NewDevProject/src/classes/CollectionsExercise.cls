@@ -1,4 +1,45 @@
 public class CollectionsExercise {
+ 
+ public void insertIntoMyList(){
+
+        List<Integer> l1= new List<Integer>();
+        for(Integer i=1; i<=100;i++){      
+           l1.add(i);
+        }        
+        //Printing l1 using for each       
+        for(Integer i:l1){
+        System.debug(i);
+        
+        } 
+        
+ }
+  public void insertIntoListMethod2(){ 
+        //Implemrnting Second Part of Exercise    
+        List<Integer> l2= new List<Integer>();    
+         
+        for(Integer i=1; i<=10;i++){      
+           l2.add(i);
+        } 
+        
+         List<Integer> l3= new List<Integer>();    
+         
+        for(Integer i=20; i<=30;i++){      
+           l3.add(i);
+        } 
+        
+        List<Integer> list4= new List<Integer>();
+        list4.addAll(l2);
+        list4.addAll(l3);
+        
+          //Printing list4 using for each       
+        for(Integer i:list4){
+        System.debug(i);
+        } 
+        
+ }
+        
+        
+
 
     public void printList(){
         
@@ -18,6 +59,8 @@ public class CollectionsExercise {
             System.debug('Set value '+i);
             
         }
+        
+       
         
     }
     
