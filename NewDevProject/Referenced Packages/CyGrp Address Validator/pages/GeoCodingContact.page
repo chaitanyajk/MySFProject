@@ -1,0 +1,103 @@
+<apex:page controller="cygrpadv.GeocodingClassContact" action="{!callvalidateAddress}" sidebar="false"  showHeader="false" id="thepage">
+<script language="JavaScript" type="text/javascript">
+//To read the selected radion button for Other
+     function selectRadioFunction(jsradioField,jshiddenField)
+       {
+          if(jsradioField.checked)
+          {
+          document.getElementById(jshiddenField).value = true; //Marking the bind variable true for other address
+          }
+       }
+   
+   //To read the selected radion button for Mailing
+     function selectRadioFunctionMailing(jsradioFieldB,jshiddenFieldMailing)
+       {
+          if(jsradioFieldB.checked)
+          {
+          document.getElementById(jshiddenFieldMailing).value = true; //Marking the bind variable true for mailing address
+          }
+     //alert(jshiddenFieldMailing);
+       }
+    if("{!JSENCODE($Request.success)}" == "true") 
+         {
+            // alert(navigator.appName);
+            if(navigator.appName != 'Microsoft Internet Explorer' && navigator.appName != 'Opera')
+            {
+            parent.window.close();
+            parent.window.opener.location.href = "/{!$Request.id}";  
+            }
+            else
+            {
+            parent.window.close();
+            alert('Please refresh the Contact page to view your changes.');
+            window.close();
+            }
+ 
+       }
+
+ 
+
+</script>
+<apex:form id="theform">
+<apex:pageMessages />
+  
+    <style type="text/css">      
+ .customPopup{            
+   background-color: white; 
+  border-style: solid; 
+  border-width: 2px;
+  left: 50%;           
+  padding:10px;           
+  position: absolute;           
+  z-index: 9999;           
+   /* These are the 3 css properties you will need to tweak so the pop             
+   up displays in the center of the screen. First set the width. Then set            
+   margin-left to negative half of what the width is. You can also add            
+   the height property for a fixed size pop up.*/            
+  width: 500px;            
+  margin-left: -250px;           
+  top:100px;        
+}    
+</style> 
+<!-- Modified code START---------------  -->
+<apex:pageBlock title="Address Validator" id="thePageBlock" rendered="{!if(((mailingadd)||(otheradd)),'true','false')}">
+
+            <apex:pageBlockButtons >
+                <!--       <apex:commandButton value="Update me" action="{!processSelectedAddress}"  onClick="javascript:closewindow()"/>-->
+                <apex:commandButton value="Update" action="{!processSelectedAddress}" />
+                <apex:commandButton value="Cancel" onclick="javascript:parent.window.close();"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="{!IF((!noOfMailingAddress),'Please select the mailing address and click on update','Please select any one mailing address and click on update')}"  columns="1" id="thePBSectionMailing" rendered="{!mailingadd}" >
+
+
+      
+                     <apex:pageBlockTable value="{!mailingAddressWrapperList}" var="v" id="tableMailing" border="0" styleClass="none">
+                     <apex:column width="10px" id="firstColumMailing">
+                         <input type="radio" name="thenameMailing" id="radiofieldMailing" onchange="selectRadioFunctionMailing(this,'{!$Component.thepage.theform.thePageBlock.thePBSectionMailing.tableMailing.hiddenValueMailing}')"/>
+                           <apex:inputHidden value="{!v.isSelected}" id="hiddenValueMailing"/>
+                     </apex:column>
+                     <apex:column value="{!v.con.MailingStreet}" headerValue="Street"/>
+                     <apex:column value="{!v.con.MailingCity}" headerValue="City"/>
+                     <apex:column value="{!v.con.MailingState}" headerValue="State"/>
+                     <apex:column value="{!v.con.MailingPostalCode}" headerValue="PostalCode"/>
+                     <apex:column value="{!v.con.MailingCountry}" headerValue="Country"/>
+                 </apex:pageBlockTable>  
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="{!IF((!noOfOtherAddress),'Please select the Other address and click on update','Please select any one Other address and click on update')}"  columns="1" id="thePBSectionOther" rendered="{!otheradd}" >
+                  <apex:pageBlockTable value="{!otherAddressWrapperList}" var="val" id="tableOther" border="0" styleClass="none">
+                     <apex:column width="10px" id="firstColum">
+                         <input type="radio" name="thename" id="radiofield" onchange="selectRadioFunction(this,'{!$Component.thepage.theform.thePageBlock.thePBSectionOther.tableOther.hiddenValueOther}')"/>
+                           <apex:inputHidden value="{!val.isSelected}" id="hiddenValueOther"/>
+                     </apex:column>
+                     <apex:column value="{!val.con.OtherStreet}" headerValue="Street"/>
+                     <apex:column value="{!val.con.OtherCity}" headerValue="City"/>
+                     <apex:column value="{!val.con.OtherState}" headerValue="State"/>
+                     <apex:column value="{!val.con.OtherPostalCode}" headerValue="PostalCode"/>
+                     <apex:column value="{!val.con.OtherCountry}" headerValue="Country"/>
+                 </apex:pageBlockTable>
+            </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+    <!-- modified code End  -->
+</apex:form>
+</apex:page>

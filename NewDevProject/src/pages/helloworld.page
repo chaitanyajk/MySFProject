@@ -1,0 +1,36 @@
+<apex:page controller="Accounts1" lightningStyleSheets="true">
+ <apex:slds />
+ <div class="slds-scope">
+ <apex:form > 
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  This is your new Page: helloworld
+  <br/>
+  <h2>THIS IS CHAITANYA</h2>
+  <!-- End Default Content REMOVE THIS -->
+
+  <apex:pageBlock >
+      <apex:pageBlockSection columns="3">
+          <apex:pageBlockSectionItem >HI 1</apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >HI 2</apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >HI 3</apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >HI 4</apex:pageBlockSectionItem>
+          
+      </apex:pageBlockSection>
+      
+  
+  <apex:pageBlockButtons >
+  <apex:commandButton value="Save"  styleClass="slds-button slds-button_brand"/>
+  <apex:commandButton value="Edit" styleClass="slds-button slds-button_brand"/>
+  <apex:commandButton value="Close" styleClass="slds-button slds-button_brand"/>
+   <apex:commandButton value="Clear" styleClass="slds-button slds-button_brand"/>
+  </apex:pageBlockButtons>
+  <apex:pagemessage summary="HI , This a Page Message" severity="ERROR" strength="2"></apex:pagemessage>
+   <apex:pageblockTable value="{!acc}" var="a" >
+       <apex:column value="{!a.name}"  />
+        <apex:column value="{!a.id}"  />
+  </apex:pageblockTable>
+  </apex:pageBlock>
+  </apex:form>
+ </div>
+  </apex:page>

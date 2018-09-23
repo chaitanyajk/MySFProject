@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Mailing__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>This shows whether the mailing address is verified or not.</inlineHelpText>
+        <label>Mailing Address Verified</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Other_Address_Verified__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>This shows whether the Other Address is verified or not.</inlineHelpText>
+        <label>Other Address Verified</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <webLinks>
+        <fullName>Validate_Address</fullName>
+        <availability>online</availability>
+        <description>Custom Button for Contact Address Validation</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Validate Address</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>var newWin=null;
+var url=&quot;/apex/cygrpadv__GeoCodingContact?id={!Contact.Id}&quot;;
+newWin=window.open(url, &apos;Popup&apos;,&apos;height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no&apos;);</url>
+    </webLinks>
+</CustomObject>

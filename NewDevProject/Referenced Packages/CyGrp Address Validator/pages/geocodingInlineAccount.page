@@ -1,0 +1,247 @@
+<apex:page standardController="Account" extensions="cygrpadv.geocodingInlineControllerAccount" >
+
+<head>
+
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
+<script type="text/javascript"> 
+
+$(document).ready(function() {
+
+
+  var billingOptions = {
+    zoom: 15,
+    minZoom: 2,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    mapTypeControl: false
+       
+  }
+  
+ 
+ 
+  var map;
+  var billingMarker;
+ // var myAddress=new Array();
+  
+  var billingGeocoder = new google.maps.Geocoder();
+ 
+  var billingaddress = "{!HTMLENCODE(Account.BillingStreet)}, " + "{!HTMLENCODE(Account.BillingCity)}, "+ "{!HTMLENCODE(Account.BillingState)}, " + "{!HTMLENCODE(Account.BillingPostalCode)}, " + "{!HTMLENCODE(Account.BillingCountry)}";
+
+  var infowindow = new google.maps.InfoWindow({
+    content: "<b>Billing Address</b><br><br><b>{!HTMLENCODE(Account.Name)}</b><br>{!HTMLENCODE(Account.BillingStreet)}<br>{!HTMLENCODE(Account.BillingCity)}, {!HTMLENCODE(Account.BillingState)}, {!HTMLENCODE(Account.BillingPostalCode)}<br>{!HTMLENCODE(Account.BillingCountry)}"
+    
+    
+});
+
+
+ 
+// My code End
+  billingGeocoder.geocode( { address: billingaddress}, function(results, status) {
+ // To show billing icon when checkbox is enabled
+ 
+    if (status == google.maps.GeocoderStatus.OK && results.length && {!Account.Google_Address__c} ) {
+    
+      
+      if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+      
+      
+        //create map
+        map = new google.maps.Map(document.getElementById("map"), billingOptions);
+      
+        //center map
+        map.setCenter(results[0].geometry.location);
+        
+        //create billingMarker
+         billingMarker = new google.maps.Marker({
+            position: results[0].geometry.location,
+            map: map,
+            title: "{!HTMLENCODE(Account.Name)}"
+        });
+      
+        
+       
+        
+        //add listeners
+        google.maps.event.addListener(billingMarker, 'click', function() {
+          infowindow.open(map,billingMarker);
+        });
+        google.maps.event.addListener(infowindow, 'closeclick', function() {
+          map.setCenter(billingMarker.getPosition()); 
+        });
+        
+      }
+      
+      //end new code
+          } 
+    /*************************************************/
+    else
+    {
+        var shippingOptions = {
+    zoom: 15,
+    minZoom: 2,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    mapTypeControl: false
+       
+  }
+  
+  
+  var shippingMarker;
+  var shippingGeocoder = new google.maps.Geocoder();
+  var shippingaddress = "{!HTMLENCODE(Account.ShippingStreet)}, " + "{!HTMLENCODE(Account.ShippingCity)}, " +"{!HTMLENCODE(Account.ShippingState)}, "+ "{!HTMLENCODE(Account.ShippingPostalCode)}, " + "{!HTMLENCODE(Account.ShippingCountry)}";
+
+  var infowindow1 = new google.maps.InfoWindow({
+    content: "<b>Shipping Address</b><br><br><b>{!HTMLENCODE(Account.Name)}</b><br>{!HTMLENCODE(Account.ShippingStreet)}<br>{!HTMLENCODE(Account.ShippingCity)}, {!HTMLENCODE(Account.ShippingState)}, {!HTMLENCODE(Account.ShippingPostalCode)}<br>{!HTMLENCODE(Account.ShippingCountry)}"
+});
+
+  shippingGeocoder.geocode( { address: shippingaddress }, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK && results.length) {
+      if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+
+//create map
+        map = new google.maps.Map(document.getElementById("map"), shippingOptions);
+      
+        //center map
+        map.setCenter(results[0].geometry.location);
+
+        //create shippingMarker
+        shippingMarker = new google.maps.Marker({
+            position: results[0].geometry.location,
+            map: map,
+            title: "{!HTMLENCODE(Account.Name)}"
+        });
+        
+        //add listeners
+        google.maps.event.addListener(shippingMarker, 'click', function() {
+          infowindow1.open(map,shippingMarker);
+        });
+        google.maps.event.addListener(infowindow1, 'closeclick', function() {
+          map.setCenter(shippingMarker.getPosition()); 
+        });
+        
+      }
+      
+      
+    } 
+    
+    else {
+      $('#map1').css({'height' : '15px'});
+      $('#map1').html("Oops! {!HTMLENCODE(Account.Name)}'s billing address could not be found, please make sure the address is correct.");
+      resizeIframe();
+    }
+  });
+  
+  function resizeIframe() {
+    var windowName = window.name;
+    if (windowName) {
+      var iframes = parent.document.getElementsByName(windowName);
+      if (iframes && iframes.length == 1) {
+        height = document.body.offsetHeight;
+        iframes[0].style.height = height + "px";
+      }
+    }
+  }
+    }
+    
+  });
+  
+  function resizeIframe() {
+    var windowName = window.name;
+    if (windowName) {
+      var iframes = parent.document.getElementsByName(windowName);
+      if (iframes && iframes.length == 1) {
+        height = document.body.offsetHeight;
+        iframes[0].style.height = height + "px";
+      }
+    }
+  }
+  
+  // Second ***********************************************************************************
+  
+      var shippingOptions = {
+      zoom: 15,
+      minZoom: 2,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false
+      }
+      var shippingMarker;
+      var shippingGeocoder = new google.maps.Geocoder();
+      var shippingaddress = "{!HTMLENCODE(Account.ShippingStreet)}, " + "{!HTMLENCODE(Account.ShippingCity)}, " +"{!HTMLENCODE(Account.ShippingState)}, "+ "{!HTMLENCODE(Account.ShippingPostalCode)}, " + "{!HTMLENCODE(Account.ShippingCountry)}";
+
+      var infowindow1 = new google.maps.InfoWindow({
+      content: "<b>Shipping Address</b><br><br><b>{!HTMLENCODE(Account.Name)}</b><br>{!HTMLENCODE(Account.ShippingStreet)}<br>{!HTMLENCODE(Account.ShippingCity)}, {!HTMLENCODE(Account.ShippingState)}, {!HTMLENCODE(Account.ShippingPostalCode)}<br>{!HTMLENCODE(Account.ShippingCountry)}"
+}     );
+
+      shippingGeocoder.geocode( { address: shippingaddress }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK && results.length && {!Account.Shipping_Address_Verified__c }) {
+          if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+
+
+
+            //create billingMarker
+            shippingMarker = new google.maps.Marker({
+            position: results[0].geometry.location,
+            map: map,
+            title: "{!HTMLENCODE(Account.Name)}"
+            });
+        
+            //add listeners
+            google.maps.event.addListener(shippingMarker, 'click', function() {
+            infowindow1.open(map,shippingMarker);
+            });
+            google.maps.event.addListener(infowindow1, 'closeclick', function() {
+            map.setCenter(shippingMarker.getPosition()); 
+            });
+        
+          }
+      
+      
+        } 
+    
+       else 
+       {
+          $('#map1').css({'height' : '15px'});
+          $('#map1').html("Oops! {!HTMLENCODE(Account.Name)}'s billing address could not be found, please make sure the address is correct.");
+          resizeIframe();
+        }
+      });
+  
+      function resizeIframe() {
+      var windowName = window.name;
+      if (windowName) {
+      var iframes = parent.document.getElementsByName(windowName);
+      if (iframes && iframes.length == 1) 
+      {
+        height = document.body.offsetHeight;
+        iframes[0].style.height = height + "px";
+      }
+      }
+      }
+  
+}    );
+</script>
+
+<style>
+#map {
+  font-family: Arial;
+  font-size:12px;
+  line-height:normal !important;
+  height:250px;
+  background:transparent;
+}
+</style>
+
+</head>
+ 
+<body>
+
+<apex:pageBlock rendered="{!dispmap}">
+
+<div id="map" ></div> 
+
+
+</apex:pageBlock>
+
+<apex:pageBlock rendered="{!dispText}">
+<B><H3><I>In order to view the map, please validate either billing or shipping address!</I></H3></B></apex:pageBlock>
+</body> 
+</apex:page>

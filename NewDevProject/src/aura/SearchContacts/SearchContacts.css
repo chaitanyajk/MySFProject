@@ -1,0 +1,26 @@
+.THIS .headerText {
+    font-size:60px;
+    text-align: center;
+    
+}
+.THIS.header{
+    background-color:orange;
+    padding:10px;
+    	 
+    }
+.THIS.container{
+    background-color:grey;
+    padding:10px;
+    border:2px;
+    	 
+    }
+.THIS .contactsBox{
+    background-color:#99ddff;
+    border:2px;
+    width:30%;
+
+    padding: 10px;
+    text-align:Left;
+   
+    	 
+    }

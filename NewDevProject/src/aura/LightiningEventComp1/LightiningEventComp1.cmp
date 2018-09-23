@@ -1,0 +1,27 @@
+<aura:component >
+    <aura:attribute name="incomes" type="Object"/>
+    <aura:attribute name="myColumns" type="List"/>
+    <aura:registerEvent name="totalIncomeComponentEvent" type="c:displayValueEvent"/>
+    <aura:handler name="totalIncomeComponentEvent" event="c:displayValueEvent" action="{!c.handleEvent}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:card title="SFDC INCOME CALCULATOR" iconName="standard:contact">
+    <aura:set attribute="actions">
+        <lightning:button label="Show/Hide Income Form" onclick="{!c.toggleIncomeForm}" ></lightning:button>
+    </aura:set>
+        </lightning:card>
+    <p class="slds-p-horizontal_small">
+    	<div aura:id="incomeForm" class="hide">
+            <lightning:Input aura:id="source" required="true" label="Income Source"></lightning:Input>
+            <lightning:Input aura:id="amount" required="true" label="Amount"></lightning:Input>
+             <br/>
+        <lightning:button name="addIncome" label="Add Income" onclick="{!c.addIncome}" variant="brand"/>
+        </div>
+       
+        <br/>
+        <lightning:datatable data="{!v.incomes}" 
+                             columns="{!v.myColumns}" 
+                             keyField="sno" /> 
+        <br/>
+        <lightning:button name="calculateIncome" label="Calculate Total Income" onclick="{!c.fireCalculateTotalIncomeEvent}" variant="brand"/>
+    </p>
+</aura:component>

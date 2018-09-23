@@ -1,0 +1,105 @@
+<apex:page controller="cygrpadv.GeocodingClassAccount" action="{!callvalidateAddress}" sidebar="false"  showHeader="false" id="thepage">
+<script >
+//To read the selected radion button for Shipping
+ function selectRadioFunction(jsradioField,jshiddenField)
+   {
+ 
+  if(jsradioField.checked)
+  {
+  document.getElementById(jshiddenField).value = true;
+  }
+ 
+   }
+   
+   //To read the selected radion button for Billing
+ function selectRadioFunctionBilling(jsradioFieldB,jshiddenFieldBilling)
+   {
+ 
+  if(jsradioFieldB.checked)
+  {
+  document.getElementById(jshiddenFieldBilling).value = true;
+  }
+ //alert(jshiddenFieldBilling);
+   }
+//function CloseAndRefresh(){
+//window.opener.location.href="/{!$CurrentPage.parameters.id}";
+//      window.top.close();
+
+    if("{!JSENCODE($Request.success)}" == "true") 
+         {
+            // alert(navigator.appName);
+            if(navigator.appName != 'Microsoft Internet Explorer' && navigator.appName != 'Opera')
+            {
+            parent.window.close();
+            parent.window.opener.location.href = "/{!$Request.id}";  
+            }
+            else
+            {
+            alert('Please refresh the Account page to view your changes.');
+            parent.window.close();
+            
+            window.close();
+            }
+ 
+       }
+
+
+</script>
+<apex:form id="theform">
+<apex:pageMessages />
+    
+    <style type="text/css">      
+ .customPopup{            
+   background-color: white; 
+  border-style: solid; 
+  border-width: 2px;
+  left: 50%;           
+  padding:10px;           
+  position: absolute;           
+  z-index: 9999;           
+   /* These are the 3 css properties you will need to tweak so the pop             
+   up displays in the center of the screen. First set the width. Then set            
+   margin-left to negative half of what the width is. You can also add            
+   the height property for a fixed size pop up.*/            
+  width: 500px;            
+  margin-left: -250px;           
+  top:100px;        
+}    
+</style> 
+    <apex:pageBlock title="Address Validator" id="thePageBlock" rendered="{!if(((dispBilling)||(dispShipping)),'true','false')}">
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Update" action="{!processSelectedAddress}" />
+            <apex:commandButton value="Cancel" onclick="javascript:parent.window.close();"/>
+            
+         </apex:pageBlockButtons>
+            <apex:pageBlockSection title="{!IF((!noOfBillingAddress),'Please select the billing address and click on update','Please select any one billing address and click on update')}"  columns="1" id="thePBSectionBilling" rendered="{!dispBilling}" >
+                 <apex:pageBlockTable value="{!billingAddressWrapperList}" var="v" id="tableBilling" border="0" styleClass="none">
+                     <apex:column width="10px" id="firstColumBilling">
+                         <input type="radio" name="thenameBilling" id="radiofieldBilling" onchange="selectRadioFunctionBilling(this,'{!$Component.thepage.theform.thePageBlock.thePBSectionBilling.tableBilling.hiddenValueBilling}')"/>
+                           <apex:inputHidden value="{!v.isSelected}" id="hiddenValueBilling"/>
+                     </apex:column>
+                     <apex:column value="{!v.acc.BillingStreet}" headerValue="Street"/>
+                     <apex:column value="{!v.acc.BillingCity}" headerValue="City"/>
+                     <apex:column value="{!v.acc.BillingState}" headerValue="State"/>
+                     <apex:column value="{!v.acc.BillingPostalCode}" headerValue="PostalCode"/>
+                     <apex:column value="{!v.acc.BillingCountry}" headerValue="Country"/>
+                 </apex:pageBlockTable>  
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="{!IF((!noOfShippingAddress),'Please select the shipping address and click on update','Please select any one shipping address and click on update')}"  columns="1" id="thePBSectionShipping" rendered="{!dispShipping}" >
+            
+                 <apex:pageBlockTable value="{!shippingAddressWrapperList}" var="val" id="tableShipping" border="0" styleClass="none">
+                     <apex:column width="10px" id="firstColum">
+                         <input type="radio" name="thename" id="radiofield" onchange="selectRadioFunction(this,'{!$Component.thepage.theform.thePageBlock.thePBSectionShipping.tableShipping.hiddenValueShipping}')"/>
+                           <apex:inputHidden value="{!val.isSelected}" id="hiddenValueShipping"/>
+                     </apex:column>
+                     <apex:column value="{!val.acc.ShippingStreet}" headerValue="Street"/>
+                     <apex:column value="{!val.acc.ShippingCity}" headerValue="City"/>
+                     <apex:column value="{!val.acc.ShippingState}" headerValue="State"/>
+                     <apex:column value="{!val.acc.ShippingPostalCode}" headerValue="PostalCode"/>
+                     <apex:column value="{!val.acc.ShippingCountry}" headerValue="Country"/>
+                 </apex:pageBlockTable>
+            </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

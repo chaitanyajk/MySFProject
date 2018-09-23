@@ -1,0 +1,93 @@
+<apex:page controller="govdelivery.ConnectAgentSettingsController" action="{!init}" docType="html-5.0">
+    <apex:stylesheet value="{!$Resource.govdelivery__ConnectAgentSettings}" />
+    <apex:form >
+        <apex:pageBlock title="Edit Your Connect Agent Settings">
+            <apex:pageMessages />
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:inputField value="{!agentSettings.govdelivery__Connect_URL__c}" styleClass="wideInput"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+                <apex:inputField value="{!agentSettings.govdelivery__Retention_Days__c}" styleClass="wideInput"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="3">
+                <apex:pageBlockSectionItem helpText="These tokens should be provided by GovDelivery Customer Support. For each token, enter the token in the 'Token' box of the first available row, then enter the name of the user who owns that token." dataStyleClass="hidden">
+                    <apex:outputLabel value="Authentication" />
+                    <apex:outputLabel value="" />
+                    </apex:pageBlockSectionItem>
+                    <table class="tokensTable">
+                        <thead>
+                            <tr>
+                            	<th>Token</th>
+                                <th>Token Owner</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tokenRow">
+                                <apex:pageBlockSection >
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_1__c}" label=""/>
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_Association_1__c}" label=""/>
+                                </apex:pageBlockSection>
+                            </tr>
+                            <tr class="tokenRow">
+                            	<apex:pageBlockSection >
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_2__c}" label=""/>
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_Association_2__c}" label=""/>
+                                </apex:pageBlockSection>
+                            </tr>
+                            <tr class="tokenRow">
+                            	<apex:pageBlockSection >
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_3__c}" label=""/>
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_Association_3__c}" label=""/>
+            					</apex:pageBlockSection>
+                            </tr>
+                            <tr class="tokenRow">
+                            	<apex:pageBlockSection >
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_4__c}" label=""/>
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_Association_4__c}" label=""/>
+            					</apex:pageBlockSection>
+                            </tr>
+                            <tr class="tokenRow">
+                            	<apex:pageBlockSection >
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_5__c}" label=""/>
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_Association_5__c}" label=""/>
+            					</apex:pageBlockSection>
+                            </tr>
+                            <tr class="tokenRow">
+                            	<apex:pageBlockSection >
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_6__c}" label=""/>
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_Association_7__c}" label=""/>
+            					</apex:pageBlockSection>
+                            </tr>
+                            <tr class="tokenRow">
+                            	<apex:pageBlockSection >
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_7__c}" label=""/>
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_Association_7__c}" label=""/>
+            					</apex:pageBlockSection>
+                            </tr>
+                            <tr class="tokenRow">
+                            	<apex:pageBlockSection >
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_8__c}" label=""/>
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_Association_8__c}" label=""/>
+            					</apex:pageBlockSection>
+                            </tr>
+                            <tr class="tokenRow">
+                            	<apex:pageBlockSection >
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_9__c}" label=""/>
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_Association_9__c}" label=""/>
+            					</apex:pageBlockSection>
+                            </tr>
+                            <tr class="tokenRow">
+                            	<apex:pageBlockSection >
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_10__c}" label=""/>
+                					<apex:inputField value="{!agentSettings.govdelivery__Auth_Token_Association_10__c}" label=""/>
+            					</apex:pageBlockSection>
+                            </tr>
+                        </tbody>
+                    </table>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

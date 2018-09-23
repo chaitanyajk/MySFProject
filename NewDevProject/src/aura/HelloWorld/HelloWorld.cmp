@@ -1,0 +1,30 @@
+<aura:component >
+    <h1>HELLO WORLD!</h1>
+    <aura:attribute name="flag" type="Boolean" default="true"/>
+    <aura:if isTrue="{!v.flag}">
+        <ui:button label="HELLO"/>
+        <aura:set attribute="else">
+            <h1>THIS IS CHAITANYA</h1>
+        </aura:set>   
+    </aura:if>
+     Browsed from Tablet: {!$Browser.isTablet}
+    <br></br>
+     Running on: {!$Browser.formFactor}
+    <br></br>
+ 	 Global ID:{!globalID}
+    <br></br>
+    Local Info:{!$Locale.country}
+    Local Info:{!$Locale.language}
+    Local Info:{!$Locale.currency}
+    Local Info:{!$Locale.numberFormat}
+    <br>
+    </br>
+    <aura:attribute name="first" type="String" default="John"/>
+<aura:attribute name="last" type="String" default="Doe"/>
+
+<ui:inputText label="First Name" value="{!v.first}" updateOn="keyup"/>
+<ui:inputText label="Last Name" value="{!v.last}" updateOn="keyup"/>
+
+<!-- Returns "John Doe" -->
+<ui:outputText value="{!v.first +' '+ v.last}"/>
+</aura:component>
